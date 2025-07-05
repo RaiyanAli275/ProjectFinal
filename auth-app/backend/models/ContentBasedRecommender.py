@@ -176,7 +176,7 @@ class ContentBasedRecommender:
             self.logger.error(traceback.format_exc())
             return False
 
-    def _fit_transformers_on_sample(self, sample_size=15000):
+    def _fit_transformers_on_sample(self, sample_size=75000):
         """PHASE 1: Fit all transformers on a representative sample"""
         # NEW: Separate fitting phase for better memory control
         try:
