@@ -110,29 +110,6 @@ graph TB
     H --> P
 ```
 
-#### **Recommendation Engine Architecture**
-```mermaid
-graph TD
-    A[User Request] --> B{User Has Interactions?}
-    B -->|Yes| C[ALS Collaborative Filtering]
-    B -->|No| D[Content-Based FAISS]
-    
-    C --> C1[Matrix Factorization]
-    C --> C2[User Similarity Computation]
-    C --> C3[Generate Recommendations]
-    
-    D --> D1[TF-IDF Vectorization]
-    D --> D2[Language-Specific FAISS Index]
-    D --> D3[Vector Similarity Search]
-    
-    C3 --> E[Hybrid Combination]
-    D3 --> E
-    
-    E --> F[Language Filtering]
-    F --> G[Cache Results]
-    G --> H[Return Recommendations]
-```
-
 #### **Multi-Language Support Architecture**
 ```mermaid
 graph TD
