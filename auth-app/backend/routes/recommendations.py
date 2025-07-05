@@ -206,12 +206,12 @@ def get_based_on_likes_recommendations(current_user_id):
 
         # AGGRESSIVE CACHING: Check Redis cache first (2 hour TTL)
         cache_key = f"based_on_likes:user:{current_user_id}:{limit}"
-        cached_result = cache_service.redis.get_cache(cache_key)
+        # cached_result = cache_service.redis.get_cache(cache_key)
 
-        if cached_result:
-            cached_result["from_cache"] = True
-            cached_result["processing_time"] = time.time() - start_time
-            return jsonify(cached_result), 200
+        # if cached_result:
+        #     cached_result["from_cache"] = True
+        #     cached_result["processing_time"] = time.time() - start_time
+        #     return jsonify(cached_result), 200
 
         # Get user's interaction history
         liked_books = interaction_model.get_user_interactions(
