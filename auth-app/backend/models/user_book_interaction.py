@@ -84,7 +84,7 @@ class UserBookInteraction:
 
             # Update author affinity first
             author_ranking_changed = self._update_author_affinity(
-                str(user_id), book_author, "like", book_name
+                str(user_id), book_author[0], "like", book_name
             )
 
             # Invalidate user's recommendation cache but keep author-based cache for better performance
