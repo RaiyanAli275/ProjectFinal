@@ -14,7 +14,7 @@
 ## 🎯 **Executive Summary**
 
 ### **Project Vision**
-Holmes revolutionizes book discovery by integrating collaborative filtering, content-based recommendations, and AI-powered features into a seamless, multilingual platform. The system demonstrates advanced machine learning implementations, database optimization techniques, and modern software architecture patterns.
+Holmes revolutionizes book discovery with hybrid ML models, advanced AI features, and a seamless, multilingual experience. The system demonstrates advanced machine learning implementations, database optimization techniques, and modern software architecture patterns.
 
 ### **Key Technical Innovations**
 - **🤖 Hybrid ML Recommendation Engine**: ALS Matrix Factorization + Content-Based FAISS
@@ -24,7 +24,21 @@ Holmes revolutionizes book discovery by integrating collaborative filtering, con
 - **💾 Advanced Database Design**: MongoDB Atlas with Redis caching and optimized query patterns
 ---
 
-## 🏗️ **System Architecture**
+### 🎉 Rich Recommendation Experience
+
+Holmes doesn’t stop at a single algorithm — it combines multiple personalized strategies to help readers discover their next favorite book in meaningful ways:
+
+- **Recommended for You** — Smart User-Based Collaborative Filtering suggests books similar readers enjoyed.
+- **Because You Liked** — Quick content-based picks related to a single book you liked — both from your latest liked book and a random past favorite — to keep discovery fresh.
+- **Based on All Your Liked Books** — Broader content-based suggestions that match the themes and patterns in everything you’ve enjoyed.
+- **Best from the Author** — Highlights the most popular books from authors you already love.
+- **Continue Reading** — AI-powered series detection recommends the next book in a series, so you never lose your place.
+- **Popular in Your Favorite Genres** — Shows the most popular picks in your top genres, with extra focus on your two favorite ones.
+- **Popular Books** — Surface what’s trending overall, filtered to exclude books you’ve already read.
+
+Together, these features ensure Holmes adapts to every reader’s taste, making book discovery effortless and rewarding.
+
+
 
 ### **System Architecture Flow**
 
@@ -163,13 +177,19 @@ graph TD
 |-----------|------------|---------|---------|
 | **Runtime** | Python | 3.8+ | Core application runtime |
 | **Web Framework** | Flask | 2.3.3 | RESTful API development |
-| **ML Library** | Implicit | 0.7.2 | ALS Matrix Factorization |
-| **Vector Search** | FAISS | 1.7.4 | High-performance similarity search |
-| **ML Toolkit** | Scikit-learn | 1.3.1 | TF-IDF, preprocessing, SVD |
-| **AI Integration** | OpenAI | 1.0+ | GPT-3.5 for book enrichment |
-| **Database** | MongoDB Atlas | 4.5+ | Document storage with cloud scaling |
-| **Caching** | Redis | 5.0.1 | High-performance in-memory cache |
+| **CORS Handling** | Flask-CORS | 4.0.0 | Cross-origin requests support |
+| **Database Driver** | PyMongo | 4.5.0 | MongoDB operations |
 | **Authentication** | PyJWT | 2.8.0 | JSON Web Token implementation |
+| **Password Hashing** | bcrypt | 4.0.1 | Secure password hashing |
+| **ML Library** | Implicit | 0.7.2 | ALS Matrix Factorization |
+| **ML Toolkit** | scikit-learn | 1.3.1 | TF-IDF, preprocessing, SVD |
+| **Vector Search** | FAISS | 1.7.4 | High-performance similarity search |
+| **Numerical Computing** | NumPy | 1.26.0 | Fast numerical operations |
+| **Scientific Computing** | SciPy | 1.11.3 | Matrix ops, optimization |
+| **Data Processing** | pandas | 2.1.1 | Data wrangling and preprocessing |
+| **Language Detection** | langdetect | 1.0.9 | Auto-detect book languages |
+| **Caching** | Redis | 5.0.1 | High-performance in-memory cache |
+| **AI Integration** | OpenAI | 1.0+ | GPT-3.5 for book enrichment |
 
 #### **Frontend Technologies**
 | Component | Technology | Version | Purpose |
@@ -305,45 +325,18 @@ graph TD
     end
 ```
 
-## 🔥 **Complete Feature Set**
+#### **Cache Performance Metrics**
+- **Hit Rate**: 95% for recommendations
+- **Response Time**: <50ms for cached requests
+- **Memory Usage**: ~200MB Redis instance
+- **Invalidation Strategy**: Smart cache clearing on user interactions
 
-### **Core Recommendation Features**
-- **ALS Collaborative Filtering**: Matrix factorization with user similarity computation
-- **Content-Based FAISS**: Multi-language vector similarity search with TF-IDF
-- **Hybrid Recommendations**: 5 different recommendation types
-  - Based on Likes
-  - Because You Liked
-  - Books Like These
-  - Best From Author
-  - Popular Books
-- **Continue Reading System**: Series detection and next-book prediction
 
-### **User Experience Features**
-- **JWT Authentication**: Secure login/registration system
-- **Multi-Language Support**: 60+ languages with automatic detection and filtering
-- **Wishlist Management**: Complete CRUD operations with statistics
-- **User Preferences**: Language selection and interaction tracking
-- **Real-Time Search**: Fast book discovery with intelligent caching
+### **Memory Optimization**
 
-### **Performance & Scalability Features**
-- **Redis Caching**: Multi-layer caching strategy with smart invalidation
-- **Connection Pooling**: Optimized MongoDB and Redis connection management
-- **Background Processing**: Asynchronous model training and cache refresh
-- **Memory Optimization**: Selective FAISS index loading by language
-- **Batch Processing**: Efficient handling of large datasets
-
-### **Analytics & Monitoring Features**
-- **Interaction Counter**: User engagement and system performance tracking
-- **Health Monitoring**: Real-time system status and connection monitoring
-- **Cache Analytics**: Hit rate tracking and performance metrics
-- **User Behavior Analysis**: Recommendation effectiveness monitoring
-
-### **Technical Infrastructure Features**
-- **Microservice Architecture**: Modular backend with Blueprint routes
-- **Database Optimization**: Indexed MongoDB collections with efficient queries
-- **Security**: CORS protection, JWT tokens, secure password hashing
-- **Scalability**: Horizontal scaling support with connection pooling
-- **Error Handling**: Comprehensive error management and fallback strategies
+#### **FAISS Memory Management**
+- **Selective Loading**: Load only required language indices
+- **Chunked Processing**: Process large datasets in manageable chunks
 
 ---
 
@@ -364,6 +357,9 @@ cd auth-app/backend
 # Install Python dependencies
 pip install -r requirements.txt
 
+# If encountered an error with faiss, try running this:
+pip install faiss-cpu --only-binary :all:
+
 # Configure environment variables
 cp .env.example .env
 
@@ -373,6 +369,17 @@ python GetFaissFiles.py
 # Start the Flask server
 python app.py
 ```
+> ⚠️ **Tip:**  
+> If you encounter a *Redis connection error* when running Holmes locally, you need to install and run a Redis server.  
+> **For Windows users:**  
+> 1. [Download Redis for Windows](https://github.com/microsoftarchive/redis/releases) (choose the latest `.msi` installer).  
+> 2. Run the installer and follow the steps — make sure to add Redis to your PATH.  
+> 3. Start the Redis server: open Command Prompt as Administrator and run:  
+>    ```bash
+>    redis-server
+>    ```
+> Once Redis is running locally on `localhost:6379`, restart your Python backend and the connection should succeed.
+
 
 ### **2. Frontend Setup**
 ```bash
@@ -390,27 +397,6 @@ npm start
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
 
-### **4. Demo Scenarios for Evaluation**
-
-#### **Scenario 1: User Registration & Authentication**
-1. Register a new user account
-2. Login with JWT authentication
-3. Verify token-based session management
-
-#### **Scenario 2: Book Discovery & Interaction**
-1. Search for books by title/author
-2. Like/dislike books to build preference profile
-3. Observe how recommendations adapt to preferences
-
-#### **Scenario 3: AI-Powered Features**
-1. Like books from a series (e.g., Harry Potter)
-2. Observe "Continue Reading" recommendations
-3. Test AI book enrichment with missing books
-
-#### **Scenario 4: Performance Testing**
-1. Monitor response times in browser dev tools
-2. Check Redis cache hits via health endpoint
-3. Observe memory usage during heavy operations
 
 ### **API Documentation**
 
@@ -477,28 +463,3 @@ POST /api/wishlist/clear?confirm=true
 GET  /api/wishlist/count
 GET  /api/wishlist/statistics
 ```
----
-
-### **Production Deployment**
-
-#### **Backend Deployment (Docker)**
-```dockerfile
-FROM python:3.9-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]
-```
-
-#### **Environment Configuration**
-```bash
-# Production environment variables
-export MONGODB_URI="mongodb+srv://user:pass@cluster.mongodb.net/db"
-export REDIS_URL="redis://redis-server:6379"
-export OPENAI_API_KEY="your-openai-key"
-export JWT_SECRET_KEY="your-secret-key"
-export FLASK_ENV="production"
-```
----
