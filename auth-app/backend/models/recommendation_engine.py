@@ -63,7 +63,6 @@ class ALSRecommendationEngine:
             weight_map = {
                 "like": 3.0,  # Strong positive signal
                 "dislike": 0.1,  # Very weak signal (don't completely exclude)
-                # 'search': 1.0     # Implicit interest signal
             }
 
             df["weight"] = df["action"].map(weight_map).fillna(1.0)
@@ -314,17 +313,27 @@ class ALSRecommendationEngine:
     def force_reload_model(self):
         """Force reload the model from disk (used after training)"""
         try:
+            import subprocess, sys, os
 
-            # Clear current model state
-            self.model = None
-            self.user_item_matrix = None
-            self.user_mapping = {}
-            self.item_mapping = {}
-            self.reverse_item_mapping = {}
-            self.reverse_user_mapping = {}
+            # This works from any subdirectory in backend/
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            backend_dir = os.path.dirname(script_dir)  # models/ -> backend/
+            train_script_path = os.path.join(backend_dir, "train_model.py")
 
-            # Attempt to load the updated model
-            if self._load_model():
+            # Verify the file exists
+            if not os.path.exists(train_script_path):
+                raise FileNotFoundError(
+                    f"Training script not found at {train_script_path}"
+                )
+
+            # Use in subprocess
+            result = subprocess.run(
+                [sys.executable, train_script_path], cwd=backend_dir
+            )
+            if result.returncode == 0:
+                # Reload the model since train_model.py has updated it
+                if not self._load_model():
+                    return False
                 return True
             else:
                 return False
@@ -336,9 +345,6 @@ class ALSRecommendationEngine:
     def clear_all_recommendation_caches(self):
         """Clear all recommendation caches from MongoDB and Redis"""
         try:
-            # Clear MongoDB recommendation cache
-            mongo_deleted = self.cache_collection.delete_many({})
-
             # Clear Redis caches via cache service
             from services.cache_service import cache_service
 
@@ -346,25 +352,16 @@ class ALSRecommendationEngine:
             if cache_service.redis.is_available():
                 client = cache_service.redis.get_client()
 
-                # Clear all recommendation patterns
-                patterns = [
-                    "recommendations:*",
-                    "based_on_likes:*",
-                    "continue_reading:*",
-                    "popular_books:*",
-                    "collaborative_filtering:*",
-                    "content_based:*",
-                ]
+                pattern = "recommendations:*"
 
                 total_cleared = 0
-                for pattern in patterns:
-                    try:
-                        keys = client.keys(pattern)
-                        if keys:
-                            client.delete(*keys)
-                            total_cleared += len(keys)
-                    except Exception as e:
-                        self.logger.warning(f"Error clearing pattern {pattern}: {e}")
+                try:
+                    keys = client.keys(pattern)
+                    if keys:
+                        client.delete(*keys)
+                        total_cleared += len(keys)
+                except Exception as e:
+                    self.logger.warning(f"Error clearing pattern {pattern}: {e}")
 
             return True
 
@@ -372,18 +369,6 @@ class ALSRecommendationEngine:
             self.logger.error(f"Error clearing recommendation caches: {e}")
             return False
 
-    def get_cached_recommendations(self, user_id):
-        """Get cached recommendations if still valid"""
-        try:
-            cache = self.cache_collection.find_one(
-                {"user_id": user_id, "expires_at": {"$gt": datetime.utcnow()}}
-            )
-
-            return cache["recommendations"] if cache else None
-
-        except Exception as e:
-            self.logger.error(f"Error getting cached recommendations: {e}")
-            return None
 
     def get_enhanced_ubcf_recommendations(self, user_id, num_recommendations=10):
         """
@@ -575,30 +560,8 @@ class ALSRecommendationEngine:
             interaction_count = interaction_model.get_user_interaction_count(user_id)
             if interaction_count == 0:
                 return False
-            import subprocess, sys, os
-
-            # This works from any subdirectory in backend/
-            script_dir = os.path.dirname(os.path.abspath(__file__))
-            backend_dir = os.path.dirname(script_dir)  # models/ -> backend/
-            train_script_path = os.path.join(backend_dir, "train_model.py")
-
-            # Verify the file exists
-            if not os.path.exists(train_script_path):
-                raise FileNotFoundError(
-                    f"Training script not found at {train_script_path}"
-                )
-
-            # Use in subprocess
-            result = subprocess.run(
-                [sys.executable, train_script_path], cwd=backend_dir
-            )
-            if result.returncode == 0:
-                # Reload the model since train_model.py has updated it
-                if not self._load_model():
-                    return False
-                return True
-            else:
-                return False
+            self.force_reload_model()
+            
         except Exception as e:
             self.logger.error(f"Error in retraining: {e}")
             return False
