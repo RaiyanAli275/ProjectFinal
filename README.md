@@ -26,55 +26,157 @@ Holmes revolutionizes book discovery by integrating collaborative filtering, con
 
 ## 🏗️ **System Architecture**
 
-### **High-Level Architecture**
+### **System Architecture Flow**
+
+#### **Complete System Overview**
 ```mermaid
 graph TB
-    subgraph "Frontend Layer"
-        A[React Frontend] --> B[Tailwind CSS]
-        A --> C[Context API]
-        A --> D[React Router]
+    subgraph "Frontend Layer - React Application"
+        A[User Interface] --> B[Authentication]
+        A --> C[Book Search & Discovery]
+        A --> D[Dashboard & Recommendations]
+        A --> E[Wishlist Management]
+        A --> F[User Preferences]
+        
+        B --> B1[Login/Register Components]
+        C --> C1[Search Results Page]
+        D --> D1[Multiple Recommendation Sections]
+        E --> E1[Wishlist Component]
+        F --> F1[Language Preferences]
     end
-    
-    subgraph "API Gateway"
-        E[Flask Application] --> F[Blueprint Routes]
-        E --> G[CORS & Middleware]
-        E --> H[JWT Authentication]
+
+    subgraph "API Gateway - Flask Backend"
+        G[Flask Application] --> H[Blueprint Routes]
+        H --> H1[Authentication Routes]
+        H --> H2[Book Routes]
+        H --> H3[Recommendation Routes]
+        H --> H4[Wishlist Routes]
+        H --> H5[Continue Reading Routes]
+        H --> H6[Counter/Analytics Routes]
+        
+        G --> I[JWT Authentication]
+        G --> J[CORS & Security Middleware]
     end
-    
-    subgraph "AI/ML Engine"
-        I[ALS Collaborative Filtering] --> J[Implicit Library]
-        K[Content-Based FAISS] --> L[TF-IDF + SVD]
-        M[AI Book Enrichment] --> N[OpenAI GPT-3.5]
-        O[Continue Reading AI] --> P[Series Detection]
+
+    subgraph "Recommendation Engine - Multiple Algorithms"
+        K[ALS Collaborative Filtering] --> K1[Matrix Factorization]
+        K --> K2[User Similarity Computation]
+        K --> K3[Cold Start Handling]
+        
+        L[Content-Based FAISS] --> L1[TF-IDF Vectorization]
+        L --> L2[Multi-Language FAISS Indices]
+        L --> L3[Genre & Author Encoding]
+        L --> L4[Year Normalization]
+        
+        M[Hybrid Recommendations] --> M1[Based on Likes]
+        M --> M2[Because You Liked]
+        M --> M3[Books Like These]
+        M --> M4[Best From Author]
+        M --> M5[Popular Books]
+        
+        N[Continue Reading System] --> N1[Series Detection]
+        N --> N2[Next Book Prediction]
+        N --> N3[Reading Progress Tracking]
     end
-    
-    subgraph "Data Layer"
-        Q[(MongoDB Atlas)] --> R[Books Collection]
-        Q --> S[Users Collection]
-        Q --> T[Interactions Collection]
-        U[(Redis Cache)] --> V[Recommendation Cache]
-        U --> W[Popular Books Cache]
-        U --> X[User Session Cache]
+
+    subgraph "Database Layer - MongoDB Atlas"
+        O[(Primary Database)] --> O1[Books Collection]
+        O --> O2[Users Collection]
+        O --> O3[User Interactions]
+        O --> O4[User Similarities]
+        O --> O5[Wishlist Data]
+        O --> O6[Book Series Data]
+        O --> O7[User Language Preferences]
     end
-    
-    subgraph "Performance Layer"
-        Y[Connection Pooling] --> Z[MongoDB Manager]
-        AA[Memory Optimization] --> BB[FAISS Indices]
-        CC[Background Processing] --> DD[Model Training]
+
+    subgraph "Caching Layer - Redis"
+        P[(Redis Cache)] --> P1[Recommendation Cache]
+        P --> P2[Popular Books Cache]
+        P --> P3[Search Results Cache]
+        P --> P4[User Session Cache]
+        P --> P5[FAISS Query Cache]
     end
+
+    %% Connections
+    A --> G
+    H --> K
+    H --> L
+    H --> M
+    H --> N
+    K --> O
+    L --> O
+    M --> O
+    N --> O
+    H --> P
+```
+
+#### **Recommendation Engine Architecture**
+```mermaid
+graph TD
+    A[User Request] --> B{User Has Interactions?}
+    B -->|Yes| C[ALS Collaborative Filtering]
+    B -->|No| D[Content-Based FAISS]
     
-    A --> E
-    E --> I
-    E --> K
-    E --> M
-    E --> O
-    I --> Q
-    K --> Q
-    M --> Q
-    O --> Q
-    E --> U
-    E --> Y
-    E --> AA
+    C --> C1[Matrix Factorization]
+    C --> C2[User Similarity Computation]
+    C --> C3[Generate Recommendations]
+    
+    D --> D1[TF-IDF Vectorization]
+    D --> D2[Language-Specific FAISS Index]
+    D --> D3[Vector Similarity Search]
+    
+    C3 --> E[Hybrid Combination]
+    D3 --> E
+    
+    E --> F[Language Filtering]
+    F --> G[Cache Results]
+    G --> H[Return Recommendations]
+```
+
+#### **Multi-Language Support Architecture**
+```mermaid
+graph TD
+    A[User Request] --> B[Language Detection]
+    B --> C{User Language Preferences?}
+    C -->|Yes| D[Load User Languages]
+    C -->|No| E[Auto-Detect from Interactions]
+    
+    D --> F[Select FAISS Indices]
+    E --> F
+    
+    F --> G[60+ Language Support]
+    G --> G1[English Index]
+    G --> G2[Spanish Index]
+    G --> G3[French Index]
+    G --> G4[Chinese Index]
+    G --> G5[Arabic Index]
+    G --> G6[Other Language Indices]
+    
+    G1 --> H[Language-Filtered Results]
+    G2 --> H
+    G3 --> H
+    G4 --> H
+    G5 --> H
+    G6 --> H
+```
+
+#### **Continue Reading System Flow**
+```mermaid
+graph TD
+    A[User's Liked Books] --> B[Series Pattern Detection]
+    B --> C{Series Identified?}
+    C -->|Yes| D[Find Reading Order]
+    C -->|No| E[Return Empty]
+    
+    D --> F[Identify Current Position]
+    F --> G[Predict Next Book]
+    G --> H[Confidence Scoring]
+    H --> I{Confidence > 80%?}
+    I -->|Yes| J[Cache Recommendation]
+    I -->|No| K[Return Alternative Suggestions]
+    
+    J --> L[Return Next Book]
+    K --> L
 ```
 
 ### **Technology Stack**
@@ -208,9 +310,7 @@ TruncatedSVD(n_components=256)                           # Dimensionality reduct
 
 ## ⚡ **Performance Engineering**
 
-### **Caching Architecture**
-
-#### **Multi-Layer Caching Strategy**
+### **Multi-Layer Caching Strategy**
 ```mermaid
 graph TD
     A[User Request] --> B{Redis Cache Hit?}
@@ -224,22 +324,122 @@ graph TD
         H[L1: User Sessions - 30min TTL]
         I[L2: Popular Books - 24hr TTL]
         J[L3: Recommendations - 1week TTL]
-        K[L4: AI Enriched Books - Permanent]
+        K[L4: Search Results - Permanent]
     end
 ```
 
-#### **Cache Performance Metrics**
-- **Hit Rate**: 95% for recommendations
-- **Response Time**: <50ms for cached requests
-- **Memory Usage**: ~200MB Redis instance
-- **Invalidation Strategy**: Smart cache clearing on user interactions
+### **Connection Pooling Architecture**
+```mermaid
+graph TD
+    A[Flask Application] --> B[Connection Pool Manager]
+    B --> C[MongoDB Pool]
+    B --> D[Redis Pool]
+    
+    C --> C1[Min: 5 Connections]
+    C --> C2[Max: 20 Connections]
+    C --> C3[Idle Timeout: 30s]
+    
+    D --> D1[Max: 15 Connections]
+    D --> D2[Health Check: 30s]
+    D --> D3[Retry on Timeout: True]
+```
 
+### **Authentication & Security Flow**
+```mermaid
+graph TD
+    A[User Login] --> B[Credential Validation]
+    B --> C{Valid Credentials?}
+    C -->|Yes| D[Generate JWT Token]
+    C -->|No| E[Return Error]
+    
+    D --> F[Set Token Expiry]
+    F --> G[Return Token to Client]
+    G --> H[Client Stores Token]
+    
+    I[Protected Request] --> J[Extract JWT Token]
+    J --> K[Verify Token Signature]
+    K --> L{Token Valid?}
+    L -->|Yes| M[Allow Access]
+    L -->|No| N[Return 401 Unauthorized]
+```
 
-### **Memory Optimization**
+### **User Interaction Tracking Flow**
+```mermaid
+graph TD
+    A[User Action] --> B{Action Type}
+    B -->|Like| C[Record Like Interaction]
+    B -->|Search| D[Record Search Query]
+    B -->|Wishlist| E[Record Wishlist Action]
+    
+    C --> F[Update User Profile]
+    D --> F
+    E --> F
+    
+    F --> G[Trigger Model Update]
+    G --> H[Invalidate Related Caches]
+    H --> I[Log Analytics Event]
+    I --> J[Performance Metrics]
+```
 
-#### **FAISS Memory Management**
-- **Selective Loading**: Load only required language indices
-- **Chunked Processing**: Process large datasets in manageable chunks
+### **Wishlist Management Flow**
+```mermaid
+graph TD
+    A[Wishlist Request] --> B{Action Type}
+    B -->|Add| C[Add Book to Wishlist]
+    B -->|Remove| D[Remove Book from Wishlist]
+    B -->|Toggle| E[Toggle Book Status]
+    B -->|Check| F[Check Book Status]
+    
+    C --> G[Update Database]
+    D --> G
+    E --> G
+    
+    G --> H[Invalidate User Cache]
+    H --> I[Return Updated Status]
+    
+    F --> J[Query Database]
+    J --> K[Return Status]
+```
+
+## 🔥 **Complete Feature Set**
+
+### **Core Recommendation Features**
+- **ALS Collaborative Filtering**: Matrix factorization with user similarity computation
+- **Content-Based FAISS**: Multi-language vector similarity search with TF-IDF
+- **Hybrid Recommendations**: 5 different recommendation types
+  - Based on Likes
+  - Because You Liked
+  - Books Like These
+  - Best From Author
+  - Popular Books
+- **Continue Reading System**: Series detection and next-book prediction
+
+### **User Experience Features**
+- **JWT Authentication**: Secure login/registration system
+- **Multi-Language Support**: 60+ languages with automatic detection and filtering
+- **Wishlist Management**: Complete CRUD operations with statistics
+- **User Preferences**: Language selection and interaction tracking
+- **Real-Time Search**: Fast book discovery with intelligent caching
+
+### **Performance & Scalability Features**
+- **Redis Caching**: Multi-layer caching strategy with smart invalidation
+- **Connection Pooling**: Optimized MongoDB and Redis connection management
+- **Background Processing**: Asynchronous model training and cache refresh
+- **Memory Optimization**: Selective FAISS index loading by language
+- **Batch Processing**: Efficient handling of large datasets
+
+### **Analytics & Monitoring Features**
+- **Interaction Counter**: User engagement and system performance tracking
+- **Health Monitoring**: Real-time system status and connection monitoring
+- **Cache Analytics**: Hit rate tracking and performance metrics
+- **User Behavior Analysis**: Recommendation effectiveness monitoring
+
+### **Technical Infrastructure Features**
+- **Microservice Architecture**: Modular backend with Blueprint routes
+- **Database Optimization**: Indexed MongoDB collections with efficient queries
+- **Security**: CORS protection, JWT tokens, secure password hashing
+- **Scalability**: Horizontal scaling support with connection pooling
+- **Error Handling**: Comprehensive error management and fallback strategies
 
 ---
 
