@@ -1,0 +1,153 @@
+2025-06-09 23:51:12,300 - INFO - ================================================================================
+2025-06-09 23:51:12,301 - INFO - MEMORY-OPTIMIZED CONTENT RECOMMENDER DEPLOYMENT
+2025-06-09 23:51:12,301 - INFO - ================================================================================
+2025-06-09 23:51:12,301 - INFO - 
+--- Checking Python version ---
+2025-06-09 23:51:12,301 - INFO - Python version: 3.11.9
+2025-06-09 23:51:12,309 - INFO - 
+--- Creating directories ---
+2025-06-09 23:51:12,314 - INFO - 
+--- Backing up original file ---
+2025-06-09 23:51:12,360 - INFO - 
+--- Installing dependencies ---
+2025-06-09 23:51:12,362 - INFO - Installing dependencies...
+2025-06-09 23:51:12,362 - INFO - Running: Installing requirements.txt dependencies
+2025-06-09 23:51:12,362 - INFO - Command: pip install -r requirements.txt
+2025-06-09 23:51:16,908 - INFO - Output: Requirement already satisfied: Flask==2.3.3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 1)) (2.3.3)
+Requirement already satisfied: Flask-CORS==4.0.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 2)) (4.0.0)
+Requirement already satisfied: pymongo==4.5.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 3)) (4.5.0)
+Requirement already satisfied: bcrypt==4.0.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 4)) (4.0.1)
+Requirement already satisfied: PyJWT==2.8.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 5)) (2.8.0)
+Requirement already satisfied: python-dotenv==1.0.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 6)) (1.0.0)
+Requirement already satisfied: implicit==0.7.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 7)) (0.7.2)
+Requirement already satisfied: scipy==1.11.3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 8)) (1.11.3)
+Requirement already satisfied: numpy==1.26.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 9)) (1.26.0)
+Requirement already satisfied: pandas==2.1.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 10)) (2.1.1)
+Requirement already satisfied: scikit-learn==1.3.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 11)) (1.3.1)
+Requirement already satisfied: langdetect==1.0.9 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 12)) (1.0.9)
+Requirement already satisfied: redis==5.0.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 13)) (5.0.1)
+Requirement already satisfied: gunicorn==21.2.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 14)) (21.2.0)
+Requirement already satisfied: gevent==23.9.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 15)) (23.9.1)
+Requirement already satisfied: faiss-cpu==1.7.4 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 16)) (1.7.4)
+Requirement already satisfied: joblib==1.3.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 17)) (1.3.2)
+Requirement already satisfied: psutil==5.9.6 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 18)) (5.9.6)
+Requirement already satisfied: Werkzeug>=2.3.7 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (3.1.3)
+Requirement already satisfied: Jinja2>=3.1.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (3.1.6)
+Requirement already satisfied: itsdangerous>=2.1.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (8.2.0)
+Requirement already satisfied: blinker>=1.6.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (1.9.0)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pymongo==4.5.0->-r requirements.txt (line 3)) (2.7.0)
+Requirement already satisfied: tqdm>=4.27 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from implicit==0.7.2->-r requirements.txt (line 7)) (4.67.1)
+Requirement already satisfied: threadpoolctl in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from implicit==0.7.2->-r requirements.txt (line 7)) (3.6.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pandas==2.1.1->-r requirements.txt (line 10)) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pandas==2.1.1->-r requirements.txt (line 10)) (2025.2)
+Requirement already satisfied: tzdata>=2022.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pandas==2.1.1->-r requirements.txt (line 10)) (2025.2)
+Requirement already satisfied: six in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from langdetect==1.0.9->-r requirements.txt (line 12)) (1.17.0)
+Requirement already satisfied: packaging in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gunicorn==21.2.0->-r requirements.txt (line 14)) (24.2)
+Requirement already satisfied: zope.event in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (5.0)
+Requirement already satisfied: zope.interface in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (7.2)
+Requirement already satisfied: greenlet>=3.0rc3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (3.2.2)
+Requirement already satisfied: cffi>=1.12.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (1.17.1)
+Requirement already satisfied: pycparser in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from cffi>=1.12.2->gevent==23.9.1->-r requirements.txt (line 15)) (2.22)
+Requirement already satisfied: colorama in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from click>=8.1.3->Flask==2.3.3->-r requirements.txt (line 1)) (0.4.6)
+Requirement already satisfied: MarkupSafe>=2.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Jinja2>=3.1.2->Flask==2.3.3->-r requirements.txt (line 1)) (3.0.2)
+Requirement already satisfied: setuptools in c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\lib\site-packages (from zope.event->gevent==23.9.1->-r requirements.txt (line 15)) (65.5.0)
+2025-06-09 23:51:16,909 - INFO - Running: Verifying faiss-cpu installation
+2025-06-09 23:51:16,909 - INFO - Command: python -c "import faiss_cpu; print(f'faiss-cpu imported successfully')"
+2025-06-09 23:51:17,118 - ERROR - Error: Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'faiss_cpu'
+2025-06-09 23:51:17,120 - ERROR - Failed to verify faiss-cpu installation
+2025-06-09 23:51:17,120 - ERROR - Deployment failed at step: Installing dependencies
+2025-06-09 23:55:11,362 - INFO - ================================================================================
+2025-06-09 23:55:11,362 - INFO - MEMORY-OPTIMIZED CONTENT RECOMMENDER DEPLOYMENT
+2025-06-09 23:55:11,363 - INFO - ================================================================================
+2025-06-09 23:55:11,363 - INFO - 
+--- Checking Python version ---
+2025-06-09 23:55:11,363 - INFO - Python version: 3.11.9
+2025-06-09 23:55:11,363 - INFO - [SUCCESS] Python version is compatible
+2025-06-09 23:55:11,363 - INFO - 
+--- Creating directories ---
+2025-06-09 23:55:11,364 - INFO - [SUCCESS] Directory ensured: models
+2025-06-09 23:55:11,364 - INFO - [SUCCESS] Directory ensured: logs
+2025-06-09 23:55:11,364 - INFO - 
+--- Backing up original file ---
+2025-06-09 23:55:11,364 - INFO - Backup already exists or original file not found
+2025-06-09 23:55:11,365 - INFO - 
+--- Installing dependencies ---
+2025-06-09 23:55:11,365 - INFO - Installing dependencies...
+2025-06-09 23:55:11,365 - INFO - Running: Installing requirements.txt dependencies
+2025-06-09 23:55:11,365 - INFO - Command: pip install -r requirements.txt
+2025-06-09 23:55:15,413 - INFO - [SUCCESS] Installing requirements.txt dependencies
+2025-06-09 23:55:15,413 - INFO - Output: Requirement already satisfied: Flask==2.3.3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 1)) (2.3.3)
+Requirement already satisfied: Flask-CORS==4.0.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 2)) (4.0.0)
+Requirement already satisfied: pymongo==4.5.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 3)) (4.5.0)
+Requirement already satisfied: bcrypt==4.0.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 4)) (4.0.1)
+Requirement already satisfied: PyJWT==2.8.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 5)) (2.8.0)
+Requirement already satisfied: python-dotenv==1.0.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 6)) (1.0.0)
+Requirement already satisfied: implicit==0.7.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 7)) (0.7.2)
+Requirement already satisfied: scipy==1.11.3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 8)) (1.11.3)
+Requirement already satisfied: numpy==1.26.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 9)) (1.26.0)
+Requirement already satisfied: pandas==2.1.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 10)) (2.1.1)
+Requirement already satisfied: scikit-learn==1.3.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 11)) (1.3.1)
+Requirement already satisfied: langdetect==1.0.9 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 12)) (1.0.9)
+Requirement already satisfied: redis==5.0.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 13)) (5.0.1)
+Requirement already satisfied: gunicorn==21.2.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 14)) (21.2.0)
+Requirement already satisfied: gevent==23.9.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 15)) (23.9.1)
+Requirement already satisfied: faiss-cpu==1.7.4 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 16)) (1.7.4)
+Requirement already satisfied: joblib==1.3.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 17)) (1.3.2)
+Requirement already satisfied: psutil==5.9.6 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from -r requirements.txt (line 18)) (5.9.6)
+Requirement already satisfied: Werkzeug>=2.3.7 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (3.1.3)
+Requirement already satisfied: Jinja2>=3.1.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (3.1.6)
+Requirement already satisfied: itsdangerous>=2.1.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (2.2.0)
+Requirement already satisfied: click>=8.1.3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (8.2.0)
+Requirement already satisfied: blinker>=1.6.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Flask==2.3.3->-r requirements.txt (line 1)) (1.9.0)
+Requirement already satisfied: dnspython<3.0.0,>=1.16.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pymongo==4.5.0->-r requirements.txt (line 3)) (2.7.0)
+Requirement already satisfied: tqdm>=4.27 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from implicit==0.7.2->-r requirements.txt (line 7)) (4.67.1)
+Requirement already satisfied: threadpoolctl in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from implicit==0.7.2->-r requirements.txt (line 7)) (3.6.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pandas==2.1.1->-r requirements.txt (line 10)) (2.9.0.post0)
+Requirement already satisfied: pytz>=2020.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pandas==2.1.1->-r requirements.txt (line 10)) (2025.2)
+Requirement already satisfied: tzdata>=2022.1 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from pandas==2.1.1->-r requirements.txt (line 10)) (2025.2)
+Requirement already satisfied: six in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from langdetect==1.0.9->-r requirements.txt (line 12)) (1.17.0)
+Requirement already satisfied: packaging in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gunicorn==21.2.0->-r requirements.txt (line 14)) (24.2)
+Requirement already satisfied: zope.event in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (5.0)
+Requirement already satisfied: zope.interface in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (7.2)
+Requirement already satisfied: greenlet>=3.0rc3 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (3.2.2)
+Requirement already satisfied: cffi>=1.12.2 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from gevent==23.9.1->-r requirements.txt (line 15)) (1.17.1)
+Requirement already satisfied: pycparser in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from cffi>=1.12.2->gevent==23.9.1->-r requirements.txt (line 15)) (2.22)
+Requirement already satisfied: colorama in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from click>=8.1.3->Flask==2.3.3->-r requirements.txt (line 1)) (0.4.6)
+Requirement already satisfied: MarkupSafe>=2.0 in c:\users\t-aliraiyan\appdata\local\packages\pythonsoftwarefoundation.python.3.11_qbz5n2kfra8p0\localcache\local-packages\python311\site-packages (from Jinja2>=3.1.2->Flask==2.3.3->-r requirements.txt (line 1)) (3.0.2)
+Requirement already satisfied: setuptools in c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\lib\site-packages (from zope.event->gevent==23.9.1->-r requirements.txt (line 15)) (65.5.0)
+2025-06-09 23:55:15,414 - INFO - Running: Verifying faiss-cpu installation
+2025-06-09 23:55:15,414 - INFO - Command: python -c "import faiss; print('faiss-cpu imported successfully')"
+2025-06-09 23:55:16,820 - INFO - [SUCCESS] Verifying faiss-cpu installation
+2025-06-09 23:55:16,821 - INFO - Output: faiss-cpu imported successfully
+2025-06-09 23:55:16,821 - INFO - Running: Verifying joblib installation
+2025-06-09 23:55:16,821 - INFO - Command: python -c "import joblib; print('joblib imported successfully')"
+2025-06-09 23:55:17,499 - INFO - [SUCCESS] Verifying joblib installation
+2025-06-09 23:55:17,499 - INFO - Output: joblib imported successfully
+2025-06-09 23:55:17,499 - INFO - Running: Verifying psutil installation
+2025-06-09 23:55:17,499 - INFO - Command: python -c "import psutil; print('psutil imported successfully')"
+2025-06-09 23:55:17,795 - INFO - [SUCCESS] Verifying psutil installation
+2025-06-09 23:55:17,796 - INFO - Output: psutil imported successfully
+2025-06-09 23:55:17,796 - INFO - Running: Verifying scikit-learn installation
+2025-06-09 23:55:17,796 - INFO - Command: python -c "import sklearn; print('scikit-learn imported successfully')"
+2025-06-09 23:55:19,331 - INFO - [SUCCESS] Verifying scikit-learn installation
+2025-06-09 23:55:19,332 - INFO - Output: scikit-learn imported successfully
+2025-06-09 23:55:19,332 - INFO - Running: Verifying numpy installation
+2025-06-09 23:55:19,332 - INFO - Command: python -c "import numpy; print('numpy imported successfully')"
+2025-06-09 23:55:19,808 - INFO - [SUCCESS] Verifying numpy installation
+2025-06-09 23:55:19,809 - INFO - Output: numpy imported successfully
+2025-06-09 23:55:19,809 - INFO - Running: Verifying scipy installation
+2025-06-09 23:55:19,809 - INFO - Command: python -c "import scipy; print('scipy imported successfully')"
+2025-06-09 23:55:20,410 - INFO - [SUCCESS] Verifying scipy installation
+2025-06-09 23:55:20,410 - INFO - Output: scipy imported successfully
+2025-06-09 23:55:20,410 - INFO - [SUCCESS] All dependencies installed and verified
+2025-06-09 23:55:20,410 - INFO - 
+--- Testing implementation ---
+2025-06-09 23:55:20,411 - INFO - Testing memory-optimized implementation...
+2025-06-09 23:55:20,411 - INFO - Running: Running memory optimization tests
+2025-06-09 23:55:20,411 - INFO - Command: python scripts/test_memory_optimized_training.py
+2025-06-10 00:17:15,056 - ERROR - [TIMEOUT] Running memory optimization tests (5 minutes)
+2025-06-10 00:17:15,057 - ERROR - [ERROR] Implementation tests failed
+2025-06-10 00:17:15,057 - ERROR - Deployment failed at step: Testing implementation
