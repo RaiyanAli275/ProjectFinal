@@ -418,26 +418,65 @@ npm start
 ```http
 POST /api/register
 POST /api/login
-POST /api/verify
+GET  /api/verify
 GET  /api/user
 POST /api/logout
 ```
 
-#### **Book & Recommendation Endpoints**
+#### **Book Endpoints**
 ```http
-GET  /api/books/search?q={query}&limit={limit}
-GET  /api/books/popular?language={lang}&limit={limit}
-POST /api/books/interact
-GET  /api/books/recommendations?limit={limit}
-GET  /api/books/user-interactions
+# Search & Discovery
+GET  /api/books/search?q={query}&page={page}
+GET  /api/books/popular?limit={limit}&refresh={true/false}
+POST /api/books/popular/refresh
+GET  /api/books/popular/by-user-genres?limit={limit}
+
+# User Interactions
+POST /api/books/like
+POST /api/books/dislike
+POST /api/books/remove-interaction
+GET  /api/books/user-interactions?action={action}&limit={limit}
+
+# Purchase
+POST /api/books/buy
 ```
 
-#### **Specialized AI Endpoints**
+#### **Recommendation Endpoints**
 ```http
-GET  /api/continue-reading/
+# Collaborative Filtering
+GET  /api/recommendations/collaborative?limit={limit}
+
+# Content-Based
+GET  /api/recommendations/content-based?limit={limit}
+GET  /api/recommendations/content-based-alt?limit={limit}
+
+# Preference-Based
+GET  /api/recommendations/based-on-likes?limit={limit}
+POST /api/recommendations/based-on-likes/refresh
+
+# Author-Based
+GET  /api/recommendations/best-from-author?limit={limit}
+POST /api/recommendations/best-from-author/refresh
+```
+
+#### **Continue Reading Endpoints**
+```http
+GET  /api/continue-reading/?limit={limit}
 POST /api/continue-reading/refresh
 ```
 
+#### **Wishlist Management Endpoints**
+```http
+GET  /api/wishlist/?limit={limit}&skip={skip}
+POST /api/wishlist/add
+POST /api/wishlist/remove
+POST /api/wishlist/toggle
+POST /api/wishlist/check
+POST /api/wishlist/check-batch
+POST /api/wishlist/clear?confirm=true
+GET  /api/wishlist/count
+GET  /api/wishlist/statistics
+```
 ---
 
 ### **Production Deployment**
